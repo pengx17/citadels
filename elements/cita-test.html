@@ -1,0 +1,88 @@
+<dom-module id="cita-test">
+
+  <template>
+    <style>
+      .card {
+        width: 200px;
+        height: 300px;
+        padding: 10px;
+        border-radius: 10px;
+        position: absolute;
+        background-color: #fff;
+      }
+      .main {
+        width: 100%;
+        height: 100%;
+        background-color: var(--paper-light-blue-50);
+        border-radius: 10px;
+      }
+      .coin {
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        background-color: var(--paper-amber-300);
+      }
+      .bottomBar {
+      }
+      .bottomBar .coin {
+        background-color: var(--paper-pink-a700);
+        z-index: 2;
+      }
+      .bottomBar .bar {
+        height: 15px;
+        width: 150px;
+        margin-left: -20px;
+        background-color: var(--google-red-300);
+        z-index: 1;
+      }
+      .card2 {
+        left: 100px;
+      }
+    </style>
+    <paper-material elevation="1" class="card">
+      <div class="main layout horizontal">
+        <div class="coinContainer">
+          <div class="coin"></div>
+          <div class="coin"></div>
+          <div class="coin"></div>
+          <div class="coin"></div>
+        </div>
+        <div class="bottomBar layout horizontal self-end flex">
+          <div class="coin self-center"></div>
+          <div class="bar self-center">BlaBlaBla</div>
+        </div>
+      </div>
+    </paper-material>
+    <paper-material elevation="1" class="card card2">
+      <div class="main layout horizontal">
+        <div class="coinContainer">
+          <div class="coin"></div>
+          <div class="coin"></div>
+          <div class="coin"></div>
+          <div class="coin"></div>
+        </div>
+        <div class="bottomBar layout horizontal self-end flex">
+          <div class="coin self-center"></div>
+          <div class="bar self-center">BlaBlaBla</div>
+        </div>
+      </div>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: "cita-test",
+
+      properties: {
+        cardInfo: Object
+      },
+
+      ready: function() {
+        this.cardInfo = {
+
+        };
+      }
+    });
+  </script>
+
+</dom-module>
