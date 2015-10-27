@@ -1,0 +1,123 @@
+<link rel="import" href="cita-card-selector/cita-card-selector.html">
+<link rel="import" href="cita-player-panel/cita-player-panel.html">
+<link rel="import" href="cita-enemy-panel/cita-enemy-panel.html">
+<link rel="import" href="cita-round-roller/cita-round-roller.html">
+
+<dom-module id="cita-board">
+  <template>
+    <style>
+    :host {
+      @apply(--paper-font-common-base);
+      @apply(--layout-fit);
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      background-color: var(--paper-grey-50);
+    }
+    .board {
+      @apply(--layout-vertical);
+      @apply(--layout-flex);
+      height: 100%;
+    }
+
+    .top {
+      background-color: red;
+    }
+    .mid {
+      @apply(--layout-horizontal);
+      @apply(--layout-flex);
+    }
+    .mid-left {
+      @apply(--layout-horizontal);
+      @apply(--layout-flex);
+      @apply(--layout-wrap);
+      background-color: green;
+    }
+
+    .enemy {
+      height: 100px;
+      width: 200px;
+      background-color: yellow;
+      margin-right: 10px;
+    }
+
+    .right {
+      @apply(--layout-vertical);
+      width: 150px;
+    }
+
+    .roller {
+      @apply(--layout-flex);
+      background-color: orange;
+    }
+
+    .bot {
+      @apply(--layout-horizontal);
+      background-color: blue;
+    }
+
+    .player-panel {
+      background-color: purple;
+      height: 200px;
+      min-width: 400px;
+    }
+    .player-cards {
+      @apply(--layout-flex);
+    }
+    </style>
+    <div class="board">
+      <div class="top">
+        info bar
+      </div>
+      <div class="mid">
+        <div class="mid-left">
+          <div class="enemy">
+            enemy
+          </div>
+          <div class="enemy">
+            enemy
+          </div>
+          <div class="enemy">
+            enemy
+          </div>
+          <div class="enemy">
+            enemy
+          </div>
+          <div class="enemy">
+            enemy
+          </div>
+        </div>
+        <div class="right">
+          <div class="roller">roller</div>
+        </div>
+      </div>
+      <div class="bot">
+        <div class="player-panel">
+          the player panel
+        </div>
+        <div class="player-cards">
+          district cards in hand
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "cita-board",
+
+      properties: {
+        cardInfo: Object
+      },
+
+      ready: function() {
+        this.cardInfo = {
+
+        };
+      }
+    });
+  </script>
+
+</dom-module>
