@@ -1,0 +1,111 @@
+<dom-module id="cita-round-roller">
+  <template>
+    <style>
+      :host {
+        height: 100%;
+        width: 100%;
+      }
+
+      #roundRollerContainer {
+        display: inline-block;
+        overflow-y: hidden;
+        position: relative;
+        height: 475px;
+      }
+
+      #roundIndicator {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        border: solid 1px #000;
+        box-shadow: 0 0 5px #000, inset 0 0 15px #000;
+      }
+
+      .round-container {
+        margin-bottom: -1px;
+        border: solid 1px #aaa;
+        width: 50px;
+        height: 50px;
+        transition: transform ease 1s;
+        /* For testing */
+        text-align: center;
+        line-height: 50px;
+      }
+    </style>
+
+    <div id="roundRollerContainer">
+      <template is="dom-repeat" items="{{rounds}}">
+        <div class="round-container">
+          {{item.label}}
+        </div>
+      </template>
+      <div id="roundIndicator"></div>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: "cita-round-roller",
+
+    properties: {
+      rounds: {
+        type: Array,
+        value: []
+      }
+    },
+
+    ready: function() {
+      var self = this;
+
+      for (var i = 0; i < 10; i ++) {
+        this.push('rounds', this._generateRoundObject(i));
+      }
+
+      // iterate over the rounds automatically for testing
+      setInterval(function() {
+        self.nextRound();
+      }, 1000);
+    },
+
+    /**
+     * Move to next round and animate
+     */
+    nextRound: function() {
+      var lastRound = this.rounds[this.rounds.length - 1].key;
+      var self = this;
+
+      $('.round-container:first-child').animate({
+        marginTop: "-=51px"
+      }, function() {
+        $('.round-container:first-child').css({
+          marginTop: "0px"
+        });
+        self.shift('rounds');
+      });
+      self.push('rounds', self._generateRoundObject((lastRound + 1) % 10));
+    },
+
+    /**
+     * Utility function to generate a round object based on the round key
+     * 0 -> start, 9 -> end
+     */
+    _generateRoundObject: function(key) {
+      var label;
+
+      if (key === 0) {
+        label = 'start';
+      } else if (key === 9) {
+        label = 'end';
+      } else {
+        label = key;
+      }
+      return {
+        key: key,
+        label: label
+      };
+    }
+  });
+</script>

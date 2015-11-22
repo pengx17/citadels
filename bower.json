@@ -20,6 +20,7 @@
     "polymer": "Polymer/polymer#~1.2.1",
     "iron-elements": "PolymerElements/iron-elements#~1.0.4",
     "paper-elements": "PolymerElements/paper-elements#~1.0.5",
-    "firebase-element": "GoogleWebComponents/firebase-element#~1.0.6"
+    "firebase-element": "GoogleWebComponents/firebase-element#~1.0.6",
+    "jquery": "~2.1.4"
   }
 }
