@@ -15,20 +15,19 @@
 
       #roundIndicator {
         position: absolute;
-        top: 50px;
+        top: 52px;
         left: 0;
         width: 50px;
         height: 50px;
-        border: solid 1px #000;
         box-shadow: 0 0 5px #000, inset 0 0 15px #000;
       }
 
       .round-container {
-        margin-bottom: -1px;
-        border: solid 1px #aaa;
         width: 50px;
         height: 50px;
         transition: transform ease 1s;
+        margin-bottom: 2px;
+        box-shadow: 0 0 5px #333;
         /* For testing */
         text-align: center;
         line-height: 50px;
@@ -36,7 +35,7 @@
     </style>
 
     <div id="roundRollerContainer">
-      <template is="dom-repeat" items="{{rounds}}">
+      <template is="dom-repeat" items="{{_rounds}}">
         <div class="round-container">
           {{item.label}}
         </div>
@@ -51,7 +50,9 @@
     is: "cita-round-roller",
 
     properties: {
-      rounds: {
+      // The current round value should be synced via a firebase reference
+      currentRound: Number,
+      _rounds: {
         type: Array,
         value: []
       }
@@ -60,9 +61,9 @@
     ready: function() {
       var self = this;
 
-      for (var i = 0; i < 10; i ++) {
-        this.push('rounds', this._generateRoundObject(i));
-      }
+      this.currentRound = 0;
+
+      this.set('_rounds', this._generateRounds(this.currentRound));
 
       // iterate over the rounds automatically for testing
       setInterval(function() {
@@ -74,18 +75,30 @@
      * Move to next round and animate
      */
     nextRound: function() {
-      var lastRound = this.rounds[this.rounds.length - 1].key;
       var self = this;
 
       $('.round-container:first-child').animate({
-        marginTop: "-=51px"
+        marginTop: "-=50px"
       }, function() {
+        self.push('rounds', self.shift('rounds'));
         $('.round-container:first-child').css({
           marginTop: "0px"
         });
-        self.shift('rounds');
       });
-      self.push('rounds', self._generateRoundObject((lastRound + 1) % 10));
+    },
+
+    /**
+     * 0 -> start, 9 -> end
+     * 1 ~ 8
+     */
+    _generateRounds: function(currentRound) {
+      var self = this;
+      var rounds = [];
+
+      for (var i = 0; i < 10; i++) {
+        rounds.push(this._generateRoundObject((currentRound + i + 9) % 10));
+      }
+      return rounds;
     },
 
     /**
